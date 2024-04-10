@@ -1,0 +1,18 @@
+<p>list works!</p>
+<!--<app-event-card *ngFor="let event of eventsService.events"></app-event-card>-->
+<!--<div class="card-list">-->
+  <ul>
+    <li *ngFor="let event of eventsService.events">
+      <p>{{event.name}}</p>
+      <p>{{event.startDate}}</p>
+      <p>{{event.venue}}</p>
+      <a href="{{event.link}}">Event Link</a>
+      <p>Performers: <p *ngFor="let performer of event.performers">{{performer.name}}</p>
+    </li>
+  </ul>
+<!--  <div class="pagination">-->
+<!--    Page {{pages[0]?.number + 1}} of {{pages[0]?.size + 1}}-->
+<!--  </div>-->
+  Add buttons for pagination and binding to send page request to load more results, gray out prev button if set to page 1 (0) and gray out next page button if on last page
+<!--</div>-->
+
