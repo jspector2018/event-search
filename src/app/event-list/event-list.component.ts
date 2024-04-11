@@ -4,7 +4,8 @@ import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {Event} from "../event";
 import {Page} from "../page"
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
-import {ObservableInput} from "rxjs";
+import {catchError, ObservableInput, of, throwError} from "rxjs";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-list',
@@ -23,6 +24,7 @@ export class EventListComponent implements OnInit {
   throttle = 1000;
   // Distance down the page until onScroll() is called. 1 = 90%, 2 = 80%, etc.
   distance = 1;
+  error: string;
 
   ngOnInit(): void {
   // Trigger initial events request when page is first loaded
@@ -32,10 +34,17 @@ export class EventListComponent implements OnInit {
 
   getEvents() {
     console.log("starting scroll request on page " + this.eventsService.page);
+    this.error = '';
     this.eventsService
       // Include keyword even if blank and page number in request params
-      .getLiveResults(this.eventsService.searchText, ++this.eventsService.page)
-      .subscribe(events =>{
+      .getLiveResults(this.eventsService.searchText, ++this.eventsService.page).pipe(
+      catchError((err) => {
+        // Handle the error here
+        this.error = "Error: Unable to connect to the Ticketmaster API.";
+        console.log("Unable to connect to the Ticketmaster API: " + err.message);
+        return of([err]);
+      })
+    ).subscribe(events =>{
         // map new values to global service variables
         this.eventsService.page = events?.page?.number;
         this.eventsService.totalPages = events?.page?.totalPages;
@@ -56,7 +65,8 @@ export class EventListComponent implements OnInit {
         console.log(this.responseArray);
         console.log(this.eventsService.page);
         console.log(this.eventsService.events);
-      });
+      }
+      );
   }
   // When scroll distance is reached, trigger new paginated request to retrieve next batch of event cards
   onScroll(): void {

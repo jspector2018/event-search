@@ -27,11 +27,6 @@ export class EventsService {
   url = environment.TICKETMASTER_URL;
   key = environment.TICKETMASTER_API_KEY;
 
-  // Initial request on page load
-  getJSON(): Observable<any> {
-    return this.http.get(environment.TICKETMASTER_URL + '?apikey=' + environment.TICKETMASTER_API_KEY);
-  }
-
   // Requests based on user input
   getLiveResults(search: string, page?: number, size?: number): Observable<any> {
     let params = "";
@@ -53,7 +48,11 @@ export class EventsService {
       console.log('start date in request: ' + formatDate(this.startDate, '01'));
       console.log('end date in request: ' + formatDate(this.endDate, '23'));
       let request = this.http.get(environment.TICKETMASTER_URL + '?apikey=' + environment.TICKETMASTER_API_KEY + '&keyword=' + this.searchText + params);
-      return request;
+      try {
+        return request;
+      } catch (error) {
+        console.log("HTTP request to Ticketmaster failed: " + error.message);
+      }
   }
 
   mockEvent: {} = {

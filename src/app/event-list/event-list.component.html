@@ -1,6 +1,8 @@
 <!--<app-event-card *ngFor="let event of eventsService.events"></app-event-card>-->
 <div class="result-info">
-  <h2>Showing {{eventsService.totalElements}} Events</h2>
+<!--  If there is an error while getting results from the Ticketmaster API, display error message instead of events count-->
+  <h2 *ngIf="this.error == '' else errorBlock">Showing {{eventsService.totalElements | number}} Events</h2>
+  <ng-template #errorBlock><h2>{{this.error}}</h2></ng-template>
 </div>
 <div
   infinite-scroll
@@ -24,9 +26,3 @@
     </div>
 </div>
 </div>
-<!--  <div class="pagination">-->
-<!--    Page {{pages[0]?.number + 1}} of {{pages[0]?.size + 1}}-->
-<!--  </div>-->
-  Add buttons for pagination and binding to send page request to load more results, gray out prev button if set to page 1 (0) and gray out next page button if on last page
-<!--</div>-->
-

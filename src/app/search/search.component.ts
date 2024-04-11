@@ -7,6 +7,7 @@ import {Page} from "../page";
 import {Event} from "../event";
 import {FilterComponent} from "../filter/filter.component";
 import {FormsModule} from "@angular/forms";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-search',
@@ -30,7 +31,11 @@ export class SearchComponent implements OnInit {
       distinctUntilChanged(),
       // Handle race conditions
       switchMap(eventText => this.eventsService.getLiveResults(eventText)),
-      catchError(err => of('There was an issue connecting to the Ticketmaster API'))
+      catchError(err => {
+        alert('Error: Unable to connect to the Ticketmaster API');
+        console.log("Unable to connect to the Ticketmaster API: " + err.message);
+        return of([err]);
+      })
     ).subscribe(events => {
       this.eventsService.events = [];
       this.eventsService.page = events?.page?.number;
