@@ -1,0 +1,29 @@
+.content {
+  display: flex;
+  width: 100%;
+  max-width: 1050px;
+  margin-bottom: 3rem;
+  flex-direction: column;
+  align-content: center;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+@media screen and (max-width: 1050px) {
+  .content {
+    flex-direction: column;
+    width: max-content;
+    background: pink;
+  }
+}
+
+main {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: inherit;
+  position: relative;
+}

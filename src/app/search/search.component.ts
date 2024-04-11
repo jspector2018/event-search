@@ -5,11 +5,13 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { EventsService} from "../events.service";
 import {Page} from "../page";
 import {Event} from "../event";
+import {FilterComponent} from "../filter/filter.component";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FilterComponent, FormsModule],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
 })
@@ -40,7 +42,7 @@ export class SearchComponent implements OnInit {
         number: events?.page?.number
       });
       this.responseArray = events._embedded.events;
-      this.responseArray.forEach(element => {
+      this.responseArray?.forEach(element => {
         this.eventsService.events.push({
           name: element?.name,
           startDate: element?.dates?.start?.dateTime,
@@ -59,7 +61,13 @@ export class SearchComponent implements OnInit {
   }
   searchEvents(event)
   {
-    console.log(event.target.value)
+    console.log(event.target.value);
+    console.log("search text: " + this.eventsService.searchText);
     this.eventSubject.next(event.target.value);
+  }
+  // update search with new date range input
+  updateSearch(event) {
+    console.log("update search with dates" + event);
+    this.eventSubject.next(event);
   }
   }

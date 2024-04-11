@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'app/app.component.scss';
+@import 'app/search/search.component.scss';
+@import 'app/filter/filter.component.scss';
+@import 'app/event-list/event-list.component.scss';

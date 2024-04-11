@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from "../environments/environment";
 import {map, Observable} from "rxjs";
 import {Event} from "./event";
+import {formatDate} from "../Utils/functions";
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +12,30 @@ import {Event} from "./event";
 export class EventsService {
   constructor(private http: HttpClient) {}
   public events: Event[] = [];
+  public startDate: Date;
+  public endDate: Date;
+  public searchText = '';
+  public datePicked = false;
   url = environment.TICKETMASTER_URL;
   key = environment.TICKETMASTER_API_KEY;
 
+  // Initial request on page load
   getJSON(): Observable<any> {
     return this.http.get(environment.TICKETMASTER_URL + '?apikey=' + environment.TICKETMASTER_API_KEY);
   }
 
-  getLiveResults(input: string): Observable<any> {
-    return this.http.get(environment.TICKETMASTER_URL + '?apikey=' + environment.TICKETMASTER_API_KEY + '&keyword=' + input);
+  // Requests based on user input
+  getLiveResults(search: string): Observable<any> {
+    if (this.startDate || this.endDate) {
+      console.log('start date in request: ' + formatDate(this.startDate, '01'));
+      console.log('end date in request: ' + formatDate(this.endDate, '23'));
+      let request = this.http.get(environment.TICKETMASTER_URL + '?apikey=' + environment.TICKETMASTER_API_KEY + '&keyword=' + this.searchText + '&startDateTime=' + formatDate(this.startDate, '01') + '&endDateTime=' + formatDate(this.endDate, '23'));
+      return request;
+    } else {
+      // console.log('keyword only search: ' + this.endDate.toString());
+      let request = this.http.get(environment.TICKETMASTER_URL + '?apikey=' + environment.TICKETMASTER_API_KEY + '&keyword=' + this.searchText);
+      return request;
+    }
   }
 
   mockEvent: {} = {

@@ -4,7 +4,7 @@
   <ul>
     <li *ngFor="let event of eventsService.events">
       <p>{{event.name}}</p>
-      <p>{{event.startDate}}</p>
+      <p>{{event.startDate | date:'MM/dd/yyyy'}}</p>
       <p>{{event.venue}}</p>
       <a href="{{event.link}}">Event Link</a>
       <p>Performers: <p *ngFor="let performer of event.performers">{{performer.name}}</p>

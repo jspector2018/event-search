@@ -2,8 +2,8 @@
 <input
   type="text"
   placeholder="search for an event..."
-  (input)="searchEvents($event)"
->
+  (input)="searchEvents($event)" [(ngModel)]="this.eventsService.searchText">
+<app-filter (dateChange)="updateSearch($event)"></app-filter>
 <!--<ng-container *ngIf="(events$ | async) as events">-->
 <!--    <ul>-->
 <!--      <li *ngFor="let event of eventsService.events">-->
