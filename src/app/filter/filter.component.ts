@@ -19,27 +19,29 @@ import {FormsModule} from "@angular/forms";
 export class FilterComponent {
   constructor(public eventsService: EventsService) {
   }
+  // Utilize dateChange event emitter to communicate date change to search component, which can then adjust the request query
   @Output() dateChange: EventEmitter<any> = new EventEmitter();
   title = "filter component"
 
-  // emit updated start date event
+  // assign user-selected start date to global start date variable in service
   startDateEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     console.log(`${type}: ${event.value}`);
     // if(event.value !== null && this.eventsService.endDate !== null) {
       this.eventsService.startDate = event.value;
       console.log("formatted start date: " + formatDate(event.value, '01'));
-      // this.dateChange.emit(event.value);
+      this.dateChange.emit(event.value);
     // }
     console.log("service start date value: " + this.eventsService.startDate);
   }
-  // emit updated end date event
+  // Emit updated end date event
   endDateEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     console.log(`${type}: ${event.value}`);
-    if(event.value !== null && this.eventsService.startDate !== null) {
+    // Make sure both start date and end date are not null to ensure a proper request is formed
+    // if(event.value !== null && this.eventsService.startDate !== null) {
       this.eventsService.endDate = event.value;
       console.log("formatted end date: " + formatDate(event.value, '23'));
       this.dateChange.emit(event.value);
-    }
+    // }
     console.log("service end date value: " + this.eventsService.endDate);
   }
 }

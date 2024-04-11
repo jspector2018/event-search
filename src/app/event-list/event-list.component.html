@@ -1,4 +1,13 @@
 <!--<app-event-card *ngFor="let event of eventsService.events"></app-event-card>-->
+<div class="result-info">
+  <h2>Showing {{eventsService.totalElements}} Events</h2>
+</div>
+<div
+  infinite-scroll
+  [infiniteScrollDistance]="distance"
+  [infiniteScrollThrottle]="throttle"
+  (scrolled)="onScroll()"
+>
 <div class="card-list">
 <!--  loop through event objects loop-->
     <div class="event-card" *ngFor="let event of eventsService.events">
@@ -13,6 +22,7 @@
         <p>Performers: <p *ngFor="let performer of event.performers">{{performer.name}}</p>
       </div>
     </div>
+</div>
 </div>
 <!--  <div class="pagination">-->
 <!--    Page {{pages[0]?.number + 1}} of {{pages[0]?.size + 1}}-->

@@ -1,21 +1,7 @@
-<div id="search-box">
-  <input
+<div id="filter-bar">
+  <app-filter (dateChange)="updateSearch($event)"></app-filter>
+  <input class="search-box"
     type="text"
     placeholder="search for an event..."
     (input)="searchEvents($event)" [(ngModel)]="this.eventsService.searchText">
 </div>
-<app-filter (dateChange)="updateSearch($event)"></app-filter>
-<!--<ng-container *ngIf="(events$ | async) as events">-->
-<!--    <ul>-->
-<!--      <li *ngFor="let event of eventsService.events">-->
-<!--        <p>{{event?.name}}</p>-->
-<!--        <p>{{event?.startDate}}</p>-->
-<!--        <p>{{event?.venue}}</p>-->
-<!--        <a href="{{event?.link}}">Event Link</a>-->
-<!--        <p>Performers: <p *ngFor="let performer of event?.performers">{{performer?.name}}</p>-->
-<!--      </li>-->
-<!--    </ul>-->
-<!--    <div class="pagination">-->
-<!--      Page {{pages[0]?.number + 1}} of {{pages[0]?.size + 1}}-->
-<!--    </div>-->
-<!--</ng-container>-->

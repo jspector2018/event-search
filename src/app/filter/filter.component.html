@@ -2,7 +2,7 @@
   <mat-form-field>
     <mat-label>Enter a date range</mat-label>
     <mat-date-range-input [rangePicker]="picker">
-      <!--    <input matStartDate placeholder="Start date" (dateChange)="startDateEvent('change', $event)" [value]="eventsService.startDate">-->
+<!--      Bind date selections to change event and trigger dateChange-->
       <input matStartDate placeholder="Start date" (dateChange)="startDateEvent('change', $event)">
       <input matEndDate placeholder="End date" (dateChange)="endDateEvent('change', $event)">
     </mat-date-range-input>

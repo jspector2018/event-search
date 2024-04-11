@@ -17,30 +17,26 @@ import {FormsModule} from "@angular/forms";
 })
 export class SearchComponent implements OnInit {
   private eventSubject = new Subject<string>();
-  title = "search component"
   responseArray: any[] = [];
-  pages: Page[] = [];
+
   events$: any;
   constructor(public eventsService: EventsService) {}
 
   ngOnInit(): void {
     this.events$ = this.eventSubject.pipe(
-      // provide stable values after 250 milliseconds without user input
-      debounceTime(2000),
+      // provide stable values after x milliseconds without user input
+      debounceTime(1000),
       // skip repeat values
       distinctUntilChanged(),
       // Handle race conditions
-      // switchMap(eventText => this.eventService.getLiveResults(eventText))
       switchMap(eventText => this.eventsService.getLiveResults(eventText)),
       catchError(err => of('There was an issue connecting to the Ticketmaster API'))
     ).subscribe(events => {
       this.eventsService.events = [];
-      this.pages.push({
-        size: events?.page?.size,
-        totalElements: events?.page?.totalElements,
-        totalPages: events?.page?.totalPages,
-        number: events?.page?.number
-      });
+      this.eventsService.page = events?.page?.number;
+      this.eventsService.totalPages = events?.page?.totalPages;
+      this.eventsService.totalElements = events?.page?.totalElements;
+      this.eventsService.pageSize = events?.page?.size;
       this.responseArray = events._embedded.events;
       this.responseArray?.forEach(element => {
         this.eventsService.events.push({
@@ -53,19 +49,22 @@ export class SearchComponent implements OnInit {
         });
       });
       console.log(this.responseArray);
-      console.log(this.pages);
+      console.log("page number" + this.eventsService.page);
+      console.log("total pages" + this.eventsService.totalPages);
+      console.log("page size" + this.eventsService.pageSize);
       console.log(this.eventsService.events);
     });
 
 
   }
+  // Triggers when user has entered new, distinct search text
   searchEvents(event)
   {
     console.log(event.target.value);
     console.log("search text: " + this.eventsService.searchText);
     this.eventSubject.next(event.target.value);
   }
-  // update search with new date range input
+  // Update search request with new date range input
   updateSearch(event) {
     console.log("update search with dates" + event);
     this.eventSubject.next(event);

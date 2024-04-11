@@ -11,6 +11,10 @@
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
+.result-info {
+  padding-left: 20px;
+}
+
 /* Add some padding inside the card container */
 .event-info {
   padding: 2px 16px;
@@ -25,4 +29,5 @@ div#event-list {
 .card-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
