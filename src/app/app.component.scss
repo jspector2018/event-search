@@ -1,7 +1,7 @@
 .content {
   display: flex;
   width: 100%;
-  max-width: 1050px;
+  max-width: 1320px;
   margin-bottom: 3rem;
   flex-direction: column;
   align-content: center;
@@ -13,7 +13,6 @@
   .content {
     flex-direction: column;
     width: max-content;
-    background: pink;
   }
 }
 

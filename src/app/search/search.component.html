@@ -1,8 +1,9 @@
-<p>search works!</p>
-<input
-  type="text"
-  placeholder="search for an event..."
-  (input)="searchEvents($event)" [(ngModel)]="this.eventsService.searchText">
+<div id="search-box">
+  <input
+    type="text"
+    placeholder="search for an event..."
+    (input)="searchEvents($event)" [(ngModel)]="this.eventsService.searchText">
+</div>
 <app-filter (dateChange)="updateSearch($event)"></app-filter>
 <!--<ng-container *ngIf="(events$ | async) as events">-->
 <!--    <ul>-->

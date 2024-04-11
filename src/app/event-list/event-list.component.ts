@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {EventsService} from "../events.service";
-import {CommonModule} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {Event} from "../event";
 import {Page} from "../page"
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgOptimizedImage],
   templateUrl: './event-list.component.html',
   styleUrl: './event-list.component.scss'
 })
