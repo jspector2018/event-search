@@ -28,8 +28,8 @@ export class EventListComponent implements OnInit {
   error: string;
 
   ngOnInit(): void {
-  // Trigger initial events request when page is first loaded, infinite scroll takes care of initial load for now
-  // this.getEvents();
+  // Trigger initial events request when page is first loaded
+    this.getEvents();
   }
 
   getEvents() {
