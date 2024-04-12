@@ -29,15 +29,15 @@ export class EventListComponent implements OnInit {
 
   ngOnInit(): void {
   // Trigger initial events request when page is first loaded
-    this.getEvents();
+    this.getEvents("relevance,desc");
   }
 
-  getEvents() {
+  getEvents(sort?: string, size?: number) {
     console.log("starting scroll request on page " + this.eventsService.page);
     this.error = '';
     this.eventsService
       // Include keyword even if blank and page number in request params
-      .getLiveResults(this.eventsService.searchText, ++this.eventsService.page).pipe(
+      .getLiveResults(this.eventsService.searchText, ++this.eventsService.page, size, sort).pipe(
       catchError((err) => {
         // Handle the error here
         this.error = "Error: Unable to connect to the Ticketmaster API.";

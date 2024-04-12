@@ -30,8 +30,15 @@ export class EventsService {
   key = environment.TICKETMASTER_API_KEY;
 
   // Requests based on user input
-  getLiveResults(search: string, page?: number, size?: number): Observable<any> {
+  getLiveResults(search: string, page?: number, size?: number, sort?: string): Observable<any> {
     let params = "";
+    if (sort) {
+      params = params + "&sort=" + sort;
+    } else if (this.searchText !== '') {
+      params = params + "&sort=date,asc";
+    } else {
+      params = params + "&sort=relevance,desc";
+    }
     // concatenate page value with query if present in request params
     if (page) {
       params = params + "&page=" + page;
@@ -47,8 +54,8 @@ export class EventsService {
       params = params + '&endDateTime=' + formatDate(this.endDate, '23');
     }
     // if date range is selected and valid, include dates in query
-    console.log('start date in request: ' + formatDate(this.startDate, '01'));
-    console.log('end date in request: ' + formatDate(this.endDate, '23'));
+    // console.log('start date in request: ' + formatDate(this.startDate, '01'));
+    // console.log('end date in request: ' + formatDate(this.endDate, '23'));
     let request = this.http.get(environment.TICKETMASTER_URL + '?apikey=' + environment.TICKETMASTER_API_KEY + '&keyword=' + this.searchText + params);
     try {
       return request;
