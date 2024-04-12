@@ -31,3 +31,30 @@ div#event-list {
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.tickets-button {
+  display: flex;
+  justify-content: flex-end;
+  background-color: rgb(2, 77, 223);
+  width: 110px;
+  padding: 10px;
+}
+
+span.mat-mdc-button-persistent-ripple.mdc-button__ripple {
+  background: rgb(2, 77, 223);
+}
+
+span.mdc-button__label {
+  color: white;
+}
+
+.ticket-link {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin: 15px 0px 15px 0px;
+}
+
+.event-info p {
+  font-weight: bold;
+}

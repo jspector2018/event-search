@@ -4,8 +4,6 @@ import {MatDatepickerInputEvent, MatDatepickerModule} from '@angular/material/da
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input'
 import {EventsService} from "../events.service";
-import {DatePipe} from "@angular/common";
-import {formatDate} from "../../Utils/functions";
 import {FormsModule} from "@angular/forms";
 
 @Component({
@@ -25,23 +23,19 @@ export class FilterComponent {
 
   // assign user-selected start date to global start date variable in service
   startDateEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(`${type}: ${event.value}`);
-    // if(event.value !== null && this.eventsService.endDate !== null) {
+      // console.log(`${type}: ${event.value}`);
       this.eventsService.startDate = event.value;
-      console.log("formatted start date: " + formatDate(event.value, '01'));
+      // console.log("formatted start date: " + formatDate(event.value, '01'));
       this.dateChange.emit(event.value);
-    // }
-    console.log("service start date value: " + this.eventsService.startDate);
+      // console.log("service start date value: " + this.eventsService.startDate);
   }
   // Emit updated end date event
   endDateEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(`${type}: ${event.value}`);
-    // Make sure both start date and end date are not null to ensure a proper request is formed
-    // if(event.value !== null && this.eventsService.startDate !== null) {
+      // console.log(`${type}: ${event.value}`);
+      // Make sure both start date and end date are not null to ensure a proper request is formed
       this.eventsService.endDate = event.value;
-      console.log("formatted end date: " + formatDate(event.value, '23'));
+      // console.log("formatted end date: " + formatDate(event.value, '23'));
       this.dateChange.emit(event.value);
-    // }
-    console.log("service end date value: " + this.eventsService.endDate);
+      // console.log("service end date value: " + this.eventsService.endDate);
   }
 }

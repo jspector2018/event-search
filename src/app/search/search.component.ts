@@ -3,11 +3,8 @@ import { CommonModule } from "@angular/common";
 import {catchError, of, Subject} from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { EventsService} from "../events.service";
-import {Page} from "../page";
-import {Event} from "../event";
 import {FilterComponent} from "../filter/filter.component";
 import {FormsModule} from "@angular/forms";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-search',
@@ -50,7 +47,7 @@ export class SearchComponent implements OnInit {
           performers: element?._embedded?.attractions,
           venue: element?._embedded?.venues[0]?.name,
           link: element?.url,
-          picture: element?.images[0]?.url
+          picture: element?.images.find(i => i.width === 1024 && i.ratio === "3_2").url
         });
       });
       console.log(this.responseArray);
@@ -65,13 +62,13 @@ export class SearchComponent implements OnInit {
   // Triggers when user has entered new, distinct search text
   searchEvents(event)
   {
-    console.log(event.target.value);
-    console.log("search text: " + this.eventsService.searchText);
+    // console.log(event.target.value);
+    // console.log("search text: " + this.eventsService.searchText);
     this.eventSubject.next(event.target.value);
   }
   // Update search request with new date range input
   updateSearch(event) {
-    console.log("update search with dates" + event);
+    // console.log("update search with dates" + event);
     this.eventSubject.next(event);
   }
   }

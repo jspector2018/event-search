@@ -4,13 +4,14 @@ import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {Event} from "../event";
 import {Page} from "../page"
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
-import {catchError, ObservableInput, of, throwError} from "rxjs";
-import {error} from "@angular/compiler-cli/src/transformers/util";
+import {catchError, of} from "rxjs";
+import {MatAnchor, MatButtonModule} from "@angular/material/button";
+
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage, InfiniteScrollModule],
+  imports: [CommonModule, NgOptimizedImage, InfiniteScrollModule, MatAnchor, MatButtonModule],
   templateUrl: './event-list.component.html',
   styleUrl: './event-list.component.scss'
 })
@@ -21,15 +22,14 @@ export class EventListComponent implements OnInit {
 
   // ngx-infinite-scroll properties
   // throttle won’t trigger onScroll() until user has not scrolled for x milliseconds
-  throttle = 1000;
+  throttle = 500;
   // Distance down the page until onScroll() is called. 1 = 90%, 2 = 80%, etc.
-  distance = 1;
+  distance = 1.5;
   error: string;
 
   ngOnInit(): void {
   // Trigger initial events request when page is first loaded
   this.getEvents();
-
   }
 
   getEvents() {
@@ -59,12 +59,12 @@ export class EventListComponent implements OnInit {
             performers: element?._embedded?.attractions,
             venue: element?._embedded?.venues[0]?.name,
             link: element?.url,
-            picture: element?.images[0]?.url
+            picture: element?.images.find(i => i.width === 1024 && i.ratio === "3_2").url
           });
         });
-        console.log(this.responseArray);
-        console.log(this.eventsService.page);
-        console.log(this.eventsService.events);
+        // console.log(this.responseArray);
+        // console.log(this.eventsService.page);
+        // console.log(this.eventsService.events);
       }
       );
   }
