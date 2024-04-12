@@ -23,12 +23,12 @@
         <p>{{event.startDate | date:'EEE, MMM d • h:mm a'}}</p>
         <span>Performers: </span>
     <span *ngFor="let performer of event.performers; let i=index">
-      <span>{{performer.name}}</span><span class="list-format" *ngIf="i!=event.performers.length-1">, </span>
+<!--      Display comma delimited list of performers and omit comma if displaying last performer-->
+      <span>{{performer.name}}</span><span *ngIf="i!=event.performers.length-1">, </span>
     </span>
-        <div class="ticket-link">
+      </div>
+      <div class="ticket-link">
         <a class="tickets-button" mat-flat-button href="{{event.link}}" target="_blank">Find Tickets</a>
-        </div>
-<!--        <p>Performers: <p *ngFor="let performer of event.performers">{{performer.name}}</p>-->
       </div>
     </div>
 </div>

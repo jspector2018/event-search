@@ -4,6 +4,8 @@
   transition: 0.3s;
   margin: 20px;
   width: 400px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -18,6 +20,7 @@
 /* Add some padding inside the card container */
 .event-info {
   padding: 2px 16px;
+  margin-bottom: 10px;
 }
 
 div#event-list {
@@ -29,32 +32,42 @@ div#event-list {
 .card-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: flex-start;
 }
 
 .tickets-button {
   display: flex;
   justify-content: flex-end;
   background-color: rgb(2, 77, 223);
-  width: 110px;
   padding: 10px;
 }
 
-span.mat-mdc-button-persistent-ripple.mdc-button__ripple {
+.ticket-link span.mat-mdc-button-persistent-ripple.mdc-button__ripple {
   background: rgb(2, 77, 223);
 }
 
-span.mdc-button__label {
+.ticket-link span.mdc-button__label {
   color: white;
+  font-weight: bold;
 }
 
 .ticket-link {
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  margin: 15px 0px 15px 0px;
+  margin: 0px 0px 15px 0px;
+  padding-right: 15px;
+  margin-top: auto;
 }
 
-.event-info p {
-  font-weight: bold;
+.ticket-link a, span {
+  margin: 0px;
 }
+
+.event-info p, .event-info span {
+  font-weight: bold;
+  margin: 5px 0px;
+  color: #545454;
+}
+

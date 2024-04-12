@@ -22,14 +22,14 @@ export class EventListComponent implements OnInit {
 
   // ngx-infinite-scroll properties
   // throttle won’t trigger onScroll() until user has not scrolled for x milliseconds
-  throttle = 500;
+  throttle = 1000;
   // Distance down the page until onScroll() is called. 1 = 90%, 2 = 80%, etc.
-  distance = 1.5;
+  distance = 1;
   error: string;
 
   ngOnInit(): void {
-  // Trigger initial events request when page is first loaded
-  this.getEvents();
+  // Trigger initial events request when page is first loaded, infinite scroll takes care of initial load for now
+  // this.getEvents();
   }
 
   getEvents() {
